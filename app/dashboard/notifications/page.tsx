@@ -451,11 +451,11 @@ function NotificationsContent() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider">Due Tomorrow (1-Day)</span>
-            <Clock className="w-4 h-4" />
+            <span className={`text-xs font-black uppercase tracking-wider ${activeTab === 'TOMORROW' && !selectedDate ? '' : 'text-amber-900 dark:text-amber-300'}`}>Due Tomorrow (1-Day)</span>
+            <Clock className={`w-4 h-4 ${activeTab === 'TOMORROW' && !selectedDate ? '' : 'text-amber-700 dark:text-amber-400'}`} />
           </div>
-          <p className="text-2xl font-black mt-2">{tomorrowCount}</p>
-          <p className="text-[11px] opacity-80 mt-0.5">1-day advance notifications</p>
+          <p className={`text-2xl font-black mt-2 ${activeTab === 'TOMORROW' && !selectedDate ? '' : 'text-amber-950 dark:text-amber-200'}`}>{tomorrowCount}</p>
+          <p className={`text-[11px] mt-0.5 ${activeTab === 'TOMORROW' && !selectedDate ? 'opacity-80' : 'text-amber-800/70 dark:text-amber-400/80'}`}>1-day advance notifications</p>
         </div>
 
         {/* Due Today */}
@@ -468,11 +468,11 @@ function NotificationsContent() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider">Due Today</span>
-            <CalendarIcon className="w-4 h-4" />
+            <span className={`text-xs font-black uppercase tracking-wider ${activeTab === 'TODAY' && !selectedDate ? '' : 'text-blue-900 dark:text-blue-300'}`}>Due Today</span>
+            <CalendarIcon className={`w-4 h-4 ${activeTab === 'TODAY' && !selectedDate ? '' : 'text-blue-700 dark:text-blue-400'}`} />
           </div>
           <p className="text-2xl font-black mt-2 text-[#1e295d] dark:text-blue-300">{todayCount}</p>
-          <p className="text-[11px] opacity-80 mt-0.5">Collect payment today</p>
+          <p className={`text-[11px] mt-0.5 ${activeTab === 'TODAY' && !selectedDate ? 'opacity-80' : 'text-blue-800/70 dark:text-blue-400/80'}`}>Collect payment today</p>
         </div>
 
         {/* Overdue */}
@@ -485,11 +485,11 @@ function NotificationsContent() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider">Overdue</span>
-            <AlertTriangle className="w-4 h-4" />
+            <span className={`text-xs font-black uppercase tracking-wider ${activeTab === 'OVERDUE' && !selectedDate ? '' : 'text-rose-900 dark:text-rose-300'}`}>Overdue</span>
+            <AlertTriangle className={`w-4 h-4 ${activeTab === 'OVERDUE' && !selectedDate ? '' : 'text-rose-700 dark:text-rose-400'}`} />
           </div>
           <p className="text-2xl font-black mt-2 text-rose-700 dark:text-rose-400">{overdueCount}</p>
-          <p className="text-[11px] opacity-80 mt-0.5">Past due date</p>
+          <p className={`text-[11px] mt-0.5 ${activeTab === 'OVERDUE' && !selectedDate ? 'opacity-80' : 'text-rose-800/70 dark:text-rose-400/80'}`}>Past due date</p>
         </div>
 
         {/* All Future Scheduled */}
@@ -502,11 +502,11 @@ function NotificationsContent() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider">Future Scheduled</span>
-            <CalendarIcon className="w-4 h-4 text-slate-500" />
+            <span className={`text-xs font-black uppercase tracking-wider ${activeTab === 'FUTURE' && !selectedDate ? '' : 'text-slate-800 dark:text-slate-300'}`}>Future Scheduled</span>
+            <CalendarIcon className={`w-4 h-4 ${activeTab === 'FUTURE' && !selectedDate ? '' : 'text-slate-600 dark:text-slate-400'}`} />
           </div>
           <p className="text-2xl font-black mt-2 text-slate-900 dark:text-slate-100">{futureCount}</p>
-          <p className="text-[11px] opacity-80 mt-0.5">Scheduled for upcoming months</p>
+          <p className={`text-[11px] mt-0.5 ${activeTab === 'FUTURE' && !selectedDate ? 'opacity-80' : 'text-slate-500 dark:text-slate-400/80'}`}>Scheduled for upcoming months</p>
         </div>
       </div>
 
@@ -890,9 +890,9 @@ function NotificationsContent() {
                       <Button 
                         size="sm" 
                         variant="outline"
-                        className="h-8 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 dark:border-slate-700 flex items-center justify-center gap-1 w-full sm:w-auto"
+                        className="h-8 text-xs font-bold bg-blue-50 hover:bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800 flex items-center justify-center gap-1 shadow-xs w-full sm:w-auto"
                       >
-                        <CreditCard className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" /> Ledger
+                        <CreditCard className="w-3.5 h-3.5 text-blue-600" /> Ledger
                       </Button>
                     </Link>
                   </div>
