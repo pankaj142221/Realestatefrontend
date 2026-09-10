@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <!-- Blue gradients for ribbons -->
+    <linearGradient id="blueGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#1d4ed8" />
+      <stop offset="100%" stop-color="#172554" />
+    </linearGradient>
+    <linearGradient id="blueGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="60%" stop-color="#1e40af" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="blueGrad3" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="#ffffff" rx="20" />
+
+  <!-- MAHALAXMI 'M' EMBLEM -->
+  <g transform="translate(45, 30)">
+    <!-- Left Wing / Crest Curves -->
+    <path d="M 15 155 C 25 105, 55 50, 95 35 C 105 32, 115 40, 110 55 C 80 75, 50 120, 40 165 Z" fill="url(#blueGrad1)" />
+    <path d="M 38 165 C 50 125, 75 75, 115 58 C 125 55, 133 63, 128 78 C 95 100, 70 140, 60 175 Z" fill="url(#blueGrad1)" />
+    <path d="M 60 175 C 72 140, 95 98, 133 80 C 142 77, 150 85, 145 98 C 115 120, 92 155, 82 185 Z" fill="url(#blueGrad1)" />
+    <path d="M 82 185 C 95 155, 115 120, 150 102 C 158 99, 166 106, 162 118 C 135 140, 115 170, 105 192 Z" fill="url(#blueGrad1)" />
+    <path d="M 105 192 C 118 170, 135 142, 168 126 C 176 123, 183 130, 178 140 C 152 160, 135 185, 125 200 Z" fill="url(#blueGrad1)" />
+
+    <!-- Right Wing / Crest Horizontal Ribbons -->
+    <path d="M 115 50 C 140 25, 195 20, 260 45 C 275 50, 275 62, 258 60 C 205 45, 160 50, 135 68 Z" fill="url(#blueGrad2)" />
+    <path d="M 133 70 C 155 48, 205 45, 275 70 C 288 75, 288 85, 270 85 C 215 70, 175 75, 150 90 Z" fill="url(#blueGrad2)" />
+    <path d="M 150 92 C 170 72, 215 70, 285 95 C 298 100, 298 110, 280 110 C 225 95, 190 100, 168 112 Z" fill="url(#blueGrad2)" />
+    <path d="M 168 114 C 185 96, 225 95, 292 120 C 305 125, 305 135, 288 135 C 235 120, 205 125, 185 135 Z" fill="url(#blueGrad2)" />
+    <path d="M 185 136 C 200 120, 235 120, 298 145 C 310 150, 310 160, 292 160 C 245 145, 218 150, 200 158 Z" fill="url(#blueGrad2)" />
+    <path d="M 200 158 C 215 145, 245 145, 302 170 C 312 175, 312 185, 295 185 C 255 170, 230 175, 215 180 Z" fill="url(#blueGrad2)" />
+  </g>
+
+  <!-- TEXT SECTION -->
+  <g transform="translate(200, 258)" text-anchor="middle">
+    <!-- MAHALAXMI GROUP -->
+    <text y="0" font-family="'Arial Black', 'Arial', sans-serif" font-weight="900" font-size="25" fill="#dc2626" letter-spacing="1.5">
+      MAHALAXMI GROUP
+    </text>
+    <!-- AVIATION • DEVELOPERS -->
+    <text y="24" font-family="'Arial', sans-serif" font-weight="800" font-size="12" fill="#0f172a" letter-spacing="3.5">
+      • AVIATION • DEVELOPERS •
+    </text>
+  </g>
+
+  <!-- HELICOPTER EMBLEM -->
+  <g transform="translate(200, 340) scale(0.65)" fill="#0f172a">
+    <!-- Main Rotor Hub & Mast -->
+    <rect x="-3" y="-42" width="6" height="18" rx="2" />
+    
+    <!-- Main Rotor Blades (spinning angle) -->
+    <line x1="-140" y1="-44" x2="140" y2="-40" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="-120" y1="-48" x2="120" y2="-36" stroke="#475569" stroke-width="1.5" stroke-dasharray="8,4" />
+
+    <!-- Rotor Hub Cap -->
+    <circle cx="0" cy="-42" r="5" />
+
+    <!-- Fuselage Body -->
+    <path d="M -45 -18 C -70 -18, -85 -5, -85 8 C -85 20, -65 24, -30 24 L 25 24 C 55 24, 75 16, 80 5 C 85 -8, 70 -18, 35 -18 Z" />
+
+    <!-- Cockpit Windshield (White Cutout) -->
+    <path d="M 32 -14 C 55 -14, 68 -6, 70 3 L 42 3 C 38 -5, 30 -11, 22 -12 Z" fill="#ffffff" />
+    <!-- Side Windows -->
+    <rect x="2" y="-12" width="16" height="12" rx="2" fill="#ffffff" />
+    <rect x="-22" y="-12" width="18" height="12" rx="2" fill="#ffffff" />
+    <rect x="-46" y="-12" width="18" height="12" rx="2" fill="#ffffff" />
+
+    <!-- Engine Doghouse Top -->
+    <path d="M -35 -24 L 15 -24 L 20 -18 L -38 -18 Z" />
+
+    <!-- Tail Boom -->
+    <path d="M -80 0 L -145 -10 L -145 -4 L -80 14 Z" />
+    
+    <!-- Vertical Tail Fin & Stabilizer -->
+    <path d="M -140 -8 L -158 -32 L -148 -32 L -130 -4 Z" />
+    <rect x="-142" y="-2" width="16" height="4" rx="1" />
+
+    <!-- Tail Rotor -->
+    <line x1="-155" y1="-42" x2="-151" y2="-12" stroke="#0f172a" stroke-width="3" stroke-linecap="round" />
+    <circle cx="-153" cy="-27" r="3" />
+
+    <!-- Landing Skids & Struts -->
+    <!-- Front Strut -->
+    <line x1="20" y1="24" x2="15" y2="38" stroke="#0f172a" stroke-width="4" stroke-linecap="round" />
+    <!-- Rear Strut -->
+    <line x1="-35" y1="24" x2="-40" y2="38" stroke="#0f172a" stroke-width="4" stroke-linecap="round" />
+    <!-- Horizontal Skid Tube -->
+    <path d="M -65 38 L 45 38 C 55 38, 60 35, 62 30" fill="none" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

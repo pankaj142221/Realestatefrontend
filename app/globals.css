@@ -1,26 +1,372 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Print Styles - A4 Form Output */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html, body {
+    width: 210mm !important;
+    min-width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide screen-only UI elements */
+  aside,
+  header,
+  nav,
+  [data-print-hide],
+  button,
+  .print-hidden,
+  .print\:hidden,
+  [data-slot="dialog-overlay"],
+  [data-slot="dialog-close"] {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  .print-container {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-container > * {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Page 1: Exact A4 printable height, page break after to go to Page 2 */
+  .print-sheet-1 {
+    width: 210mm !important;
+    height: 285mm !important;
+    max-height: 285mm !important;
+    min-height: 285mm !important;
+    margin: 0 auto !important;
+    padding: 5mm 8mm !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  /* Page 2: Exact A4 printable height, NO page break after to prevent blank 3rd page */
+  .print-sheet-2 {
+    width: 210mm !important;
+    height: 285mm !important;
+    max-height: 285mm !important;
+    min-height: 285mm !important;
+    margin: 0 auto !important;
+    padding: 5mm 8mm !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  /* Receipt: Single page */
+  .print-sheet-receipt {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 auto !important;
+    padding: 8mm 12mm !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  /* Payment Ledger Sheet: Single clean A4 statement layout with anchored footer */
+  .print-sheet-ledger {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    height: 285mm !important;
+    min-height: 285mm !important;
+    max-height: 285mm !important;
+    margin: 0 auto !important;
+    padding: 6mm 10mm 10mm 10mm !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    color: black !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    overflow: hidden !important;
+  }
+
+  /* Client Visit Sheet: Clean A4 layout with margins and side borders */
+  .print-sheet-visit {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-width: 210mm !important;
+    height: auto !important;
+    max-height: 285mm !important;
+    margin: 0 auto !important;
+    padding: 6mm 10mm !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    color: black !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    overflow: hidden !important;
+  }
+
+  /* When printing from a modal dialog (Payment Ledger), completely hide background app tree */
+  body:has([data-slot="dialog-content"]) main,
+  body:has([role="dialog"]) main,
+  body:has([data-slot="dialog-content"]) .min-h-screen,
+  body:has([role="dialog"]) .min-h-screen,
+  body:has([data-slot="dialog-content"]) > *:not([data-slot="dialog-portal"]):not(style):not(script),
+  body:has([role="dialog"]) > *:not([data-slot="dialog-portal"]):not(style):not(script) {
+    display: none !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Reset Radix / Base UI Dialog Portals on Print */
+  [data-radix-portal],
+  [data-slot="dialog-portal"],
+  div[data-radix-portal],
+  div[data-slot="dialog-portal"] {
+    position: static !important;
+    display: block !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  [role="dialog"],
+  [data-slot="dialog-content"],
+  div[data-slot="dialog-content"] {
+    position: static !important;
+    display: block !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    translate: none !important;
+    --tw-translate-x: 0 !important;
+    --tw-translate-y: 0 !important;
+    --tw-transform: none !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-width: 210mm !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Marathi / Devanagari font utility */
+.font-marathi {
+  font-family: var(--font-marathi), 'Noto Sans Devanagari', sans-serif;
+}
+
+/* Mobile Screen Responsiveness for Form & Receipt Previews */
+@media screen and (max-width: 768px) {
+  .print-sheet-1,
+  .print-sheet-2,
+  .print-sheet-receipt,
+  .print-sheet-visit,
+  .print-sheet-ledger {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 10px 8px !important;
+    box-sizing: border-box !important;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+  }
+
+  .print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
