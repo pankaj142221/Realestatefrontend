@@ -182,36 +182,6 @@ function NotificationsContent() {
     }
   };
 
-  // WhatsApp Message Generator for Customer
-  const getCustomerWhatsAppLink = (item: ReminderItem) => {
-    let cleanPhone = item.whatsappNo.replace(/\D/g, '');
-    if (!cleanPhone) return '#';
-    if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
-
-    const formattedDate = item.dueDate.toLocaleDateString('en-IN');
-    const isMR = item.language === 'MR';
-    
-    let message = '';
-    if (item.statusInfo.type === 'TOMORROW') {
-      message = isMR 
-        ? `नमस्कार ${item.customerName} जी,\n\nमहालक्ष्मी डेव्हलपर्स कडून नम्र आठवण: आपल्या ${item.siteName ? `${item.siteName} (प्लॉट नं. ${item.plotNo || ''})` : 'प्लॉट'} च्या पुढील हप्त्याची (${item.installmentLabel}) तारीख उद्या ${formattedDate} रोजी आहे.${item.expectedAmount ? `\nरक्कम: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nकृपया वेळेवर हप्ता जमा करून पावती प्राप्त करून घ्यावी.\nधन्यवाद!\n- महालक्ष्मी डेव्हलपर्स`
-        : `Dear ${item.customerName},\n\nFriendly reminder from Mahalaxmi Developers: Your upcoming installment (${item.installmentLabel}) for ${item.siteName ? `${item.siteName} Plot ${item.plotNo || ''}` : 'your plot'} is due tomorrow on ${formattedDate}.${item.expectedAmount ? `\nAmount: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nKindly make the payment to receive your official receipt.\nThank You!\n- Mahalaxmi Developers`;
-    } else if (item.statusInfo.type === 'TODAY') {
-      message = isMR
-        ? `नमस्कार ${item.customerName} जी,\n\nमहालक्ष्मी डेव्हलपर्स कडून नम्र सूचना: आपल्या ${item.siteName ? `${item.siteName}` : 'प्लॉट'} चा हप्ता (${item.installmentLabel}) आज ${formattedDate} रोजी देय आहे.${item.expectedAmount ? `\nरक्कम: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nधन्यवाद!\n- महालक्ष्मी डेव्हलपर्स`
-        : `Dear ${item.customerName},\n\nReminder from Mahalaxmi Developers: Your installment (${item.installmentLabel}) for ${item.siteName ? `${item.siteName}` : 'your plot'} is due today, ${formattedDate}.${item.expectedAmount ? `\nAmount: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nThank You!\n- Mahalaxmi Developers`;
-    } else if (item.statusInfo.type === 'OVERDUE') {
-      message = isMR
-        ? `नमस्कार ${item.customerName} जी,\n\nमहालक्ष्मी डेव्हलपर्स: आपल्या प्लॉटचा हप्ता (${item.installmentLabel}) दिनांक ${formattedDate} रोजी थकीत आहे.${item.expectedAmount ? `\nरक्कम: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\nकृपया लवकरात लवकर संपर्क साधावा.\nधन्यवाद!\n- महालक्ष्मी डेव्हलपर्स`
-        : `Dear ${item.customerName},\n\nPayment Overdue Notice from Mahalaxmi Developers: Your installment (${item.installmentLabel}) was due on ${formattedDate}.${item.expectedAmount ? `\nAmount: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\nKindly clear the pending installment.\nThank You!\n- Mahalaxmi Developers`;
-    } else {
-      message = isMR
-        ? `नमस्कार ${item.customerName} जी,\n\nमहालक्ष्मी डेव्हलपर्स: आपल्या प्लॉटचा पुढील हप्ता (${item.installmentLabel}) ${formattedDate} रोजी नियोजित आहे.${item.expectedAmount ? ` रक्कम: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nधन्यवाद!\n- महालक्ष्मी डेव्हलपर्स`
-        : `Dear ${item.customerName},\n\nNotice from Mahalaxmi Developers: Your installment (${item.installmentLabel}) is scheduled for ${formattedDate}.${item.expectedAmount ? ` Amount: ₹ ${parseFloat(item.expectedAmount).toLocaleString('en-IN')}` : ''}\n\nThank You!\n- Mahalaxmi Developers`;
-    }
-
-    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-  };
 
   // WhatsApp Message Generator specifically for Admin (+91 83788 14714)
   const getAdminWhatsAppLink = (item: ReminderItem) => {
@@ -867,23 +837,7 @@ function NotificationsContent() {
                       </Button>
                     </a>
 
-                    {/* Send WhatsApp Reminder to Customer */}
-                    {item.whatsappNo && (
-                      <a 
-                        href={getCustomerWhatsAppLink(item)} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="w-full sm:w-auto"
-                      >
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          className="h-8 text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800 flex items-center justify-center gap-1.5 shadow-xs w-full sm:w-auto"
-                        >
-                          <Phone className="w-3.5 h-3.5 text-emerald-600" /> Remind Customer
-                        </Button>
-                      </a>
-                    )}
+
 
                     {/* Open Payment Ledger */}
                     <Link href="/dashboard/payments" className="w-full sm:w-auto">
