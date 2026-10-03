@@ -177,10 +177,6 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
-
             
             <div className="mt-4 flex justify-center w-full">
               <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
@@ -320,10 +316,6 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
               </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
-
               
               <div className="mt-4 flex justify-center w-full">
                 <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
@@ -467,10 +459,6 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
               </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
-
             </div>
           </div>
         </div>
@@ -526,10 +514,6 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
                 <span>ग्राहकाची सही</span>
               </div>
             </div>
-
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
           </div>
         </div>
       </div>
@@ -580,10 +564,6 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
                 <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
                 <span>Customer&apos;s Signature</span>
               </div>
-            </div>
-
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>
         </div>
