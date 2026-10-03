@@ -93,7 +93,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
       alternateNumber: 'पर्यायी नंबर',
       aadharNo: 'आधार कार्ड नं.',
       panNo: 'पॅन कार्ड नं.',
-      siteSection: 'साईट तपशील',
+      siteSection: 'साईट माहिती',
       siteName: 'साईट चे नाव',
       gatNo: 'गट नं.',
       area: 'क्षेत्र',
@@ -156,7 +156,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
       }
 
       if (total > 0) {
-        const remaining = Math.max(0, total - booking - regNumber - paid);
+        const remaining = total - booking - regNumber - paid;
         updated.remainingAmount = remaining.toString();
       }
     }
@@ -167,7 +167,28 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
   const handlePaymentChange = (index: number, field: string, value: string) => {
     const newPayments = [...formData.payments];
     newPayments[index] = { ...newPayments[index], [field]: value };
-    setFormData({ ...formData, payments: newPayments });
+    
+    let updatedRemaining = formData.remainingAmount;
+    if (field === 'amount' || field === 'status') {
+      const total = parseFloat(String(formData.totalPlotAmount).replace(/,/g, '')) || 0;
+      const booking = parseFloat(String(formData.bookingAmount).replace(/,/g, '')) || 0;
+      const regRaw = formData.registrationAmount || formData.registrationAmountText;
+      const regNumber = typeof regRaw === 'number' ? regRaw : (parseFloat(String(regRaw || '').replace(/[^0-9.]/g, '')) || 0);
+      
+      let paid = 0;
+      newPayments.forEach((p: any) => {
+        if (p.status === 'PAID' || p.receiptId || p.amount) {
+          const amt = parseFloat(String(p.amount || '').replace(/,/g, '')) || 0;
+          if (amt > 0) paid += amt;
+        }
+      });
+      
+      if (total > 0) {
+        updatedRemaining = (total - booking - regNumber - paid).toString();
+      }
+    }
+
+    setFormData({ ...formData, payments: newPayments, remainingAmount: updatedRemaining });
   };
 
   const handleSubmit = async (status: 'DRAFT' | 'SAVED') => {
