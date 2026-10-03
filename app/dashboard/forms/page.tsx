@@ -32,6 +32,18 @@ export default function FormsListPage() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    if (confirm('Are you sure you want to delete this document? This action cannot be undone.')) {
+      try {
+        await api.delete(`/forms/${id}`);
+        fetchForms();
+      } catch (error) {
+        console.error('Failed to delete form:', error);
+        alert('Failed to delete form');
+      }
+    }
+  };
+
   const handleSelect = (id: string) => {
     setSelectedForms(prev => 
       prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
@@ -100,18 +112,25 @@ export default function FormsListPage() {
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-1">
-                  {form.status === 'DRAFT' && (
-                    <Link href={`/dashboard/forms/${form._id}/edit`}>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800" title="Edit Form">
-                        <Edit2 className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                  )}
+                  <Link href={`/dashboard/forms/${form._id}/edit`}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800" title="Edit Form">
+                      <Edit2 className="h-4 w-4" />
+                    </Button>
+                  </Link>
                   <Link href={`/dashboard/forms/${form._id}/preview`}>
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800" title="Preview Form">
                       <FileText className="h-4 w-4" />
                     </Button>
                   </Link>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => handleDelete(form._id)}
+                    className="h-8 w-8 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20" 
+                    title="Delete Form"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>

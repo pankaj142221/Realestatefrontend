@@ -100,13 +100,11 @@ export default function PreviewFormPage() {
             </Button>
           )}
 
-          {form.status === 'DRAFT' && (
-            <Link href={`/dashboard/forms/${form._id}/edit`}>
-              <Button variant="outline" size="sm" className="text-xs font-bold dark:border-slate-700 dark:text-white h-9">
-                <Edit2 className="w-3.5 h-3.5 mr-1" /> Edit Draft
-              </Button>
-            </Link>
-          )}
+          <Link href={`/dashboard/forms/${form._id}/edit`}>
+            <Button variant="outline" size="sm" className="text-xs font-bold dark:border-slate-700 dark:text-white h-9">
+              <Edit2 className="w-3.5 h-3.5 mr-1" /> Edit Form
+            </Button>
+          </Link>
 
           <Button 
             onClick={handlePrint} 

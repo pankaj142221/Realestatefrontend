@@ -218,20 +218,26 @@
     box-shadow: none !important;
   }
 
-  /* Receipt: Single page */
+  /* Receipt: Single page exact A4 height */
   .print-sheet-receipt {
     width: 210mm !important;
     max-width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
     margin: 0 auto !important;
     padding: 8mm 12mm !important;
     box-sizing: border-box !important;
-    overflow: visible !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
     page-break-inside: avoid !important;
     break-inside: avoid-page !important;
     background: white !important;
     box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 
   /* Payment Ledger Sheet: Single clean A4 statement layout with anchored footer */

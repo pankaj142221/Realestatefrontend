@@ -11,6 +11,7 @@ import { toast } from '@/components/ui/toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import api from '@/lib/api';
 import Link from 'next/link';
+import { numberToWordsEnglish, numberToWordsMarathi } from '@/lib/utils';
 
 interface ReceiptEditorProps {
   initialData?: any;
@@ -37,7 +38,17 @@ export default function ReceiptEditor({ initialData, formId }: ReceiptEditorProp
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const updated = { ...formData, [name]: value };
+    
+    if (name === 'amount') {
+      const amt = parseFloat(value.replace(/,/g, ''));
+      if (!isNaN(amt) && amt > 0) {
+        updated.amountWords = language === 'MR' ? numberToWordsMarathi(amt) : numberToWordsEnglish(amt);
+      }
+    }
+    
+    setFormData(updated);
   };
 
   const handleSubmit = async (status: 'DRAFT' | 'SAVED') => {

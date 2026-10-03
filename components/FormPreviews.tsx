@@ -6,41 +6,19 @@ import { ArrowLeft, Printer, Edit2 } from 'lucide-react';
 import Link from 'next/link';
 
 export function HeaderBanner({ title, subtitle, isMarathi }: { title: string; subtitle?: string; isMarathi?: boolean }) {
-  const displayTitle = isMarathi ? (title || 'महालक्ष्मी डेव्हलपर्स') : (title ? title.toUpperCase() : 'MAHALAXMI DEVELOPERS');
-
   return (
-    <div className="relative overflow-hidden rounded-xl border border-[#1e295d] bg-gradient-to-r from-[#172050] via-[#1e2a6b] to-[#172050] px-3 sm:px-4 py-2 sm:py-2.5 mb-2.5 shadow-sm text-white">
-      <div className="relative z-10 flex items-center justify-start w-full gap-2.5 sm:gap-4">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-[94px] md:h-[94px] lg:w-[98px] lg:h-[98px] rounded-full border-2 border-white bg-white shadow-md p-1 sm:p-1.5 flex items-center justify-center shrink-0 overflow-hidden">
-          <img src="/rightsidelogo.png" className="w-full h-full object-contain rounded-full" alt="Mahalaxmi Group" />
-        </div>
-        
-        <div className="flex flex-col justify-center flex-grow text-center min-w-0 pr-1 sm:pr-2">
-          <h1 className={`${
-            isMarathi 
-              ? 'text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] font-black tracking-wide' 
-              : 'text-lg sm:text-2xl md:text-[28px] lg:text-[33px] font-black tracking-wider uppercase'
-          } text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.45)] whitespace-nowrap overflow-visible`}>
-            {displayTitle}
-          </h1>
-          {subtitle && (
-            <p className="text-[9px] sm:text-[10px] md:text-[11.5px] font-medium text-blue-100 tracking-wider uppercase mt-1 leading-tight">
-              {subtitle}
-            </p>
-          )}
-        </div>
-      </div>
+    <div className="flex flex-col items-center justify-center w-full mb-2 sm:mb-4">
+      <img src="/mahalaxmi-group-logo.png" className="h-24 sm:h-32 object-contain" alt="Mahalaxmi Group" />
     </div>
   );
 }
 
 export function SubtleWatermark() {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.15] print:opacity-[0.15] z-0">
-      <div className="w-56 h-56 sm:w-[320px] sm:h-[320px] rounded-full overflow-hidden flex items-center justify-center">
-        <img src="/rightsidelogo.png" className="w-full h-full object-contain filter grayscale contrast-125" alt="Watermark" />
+    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.08] print:opacity-[0.08] z-0">
+      <div className="w-64 h-64 sm:w-[450px] sm:h-[450px] flex items-center justify-center">
+        <img src="/mahalaxmi-group-logo.png" className="w-full h-full object-contain filter grayscale" alt="Watermark" />
       </div>
-      <span className="text-sm sm:text-[26px] font-black tracking-[0.22em] text-gray-900 mt-2 uppercase text-center px-4">MAHALAXMI DEVELOPERS</span>
     </div>
   );
 }
@@ -96,7 +74,7 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
           style={{ minHeight: '148.5mm', padding: '6mm 8mm', fontFamily: isEN ? 'sans-serif' : 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
         >
           <SubtleWatermark />
-          <div className="relative z-10 border-2 sm:border-[2.5px] border-[#1e295d] p-3 sm:p-4 rounded-sm">
+          <div className="relative z-10 p-3 sm:p-4">
             <HeaderBanner title={t.title} isMarathi={!isEN} />
             <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 mt-2 mb-3 text-[11px] sm:text-[12px]">
               <div><span className="font-bold">{t.no}</span> <span className="px-2 min-w-[50px] inline-block font-bold">{form.formNumber}</span></div>
@@ -177,6 +155,9 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
                 </div>
               </div>
             </div>
+            <div className="mt-6 flex justify-center w-full">
+              <img src="/mahalaxmi-group-logo.png" className="h-16 sm:h-20 object-contain opacity-80" alt="Footer Logo" />
+            </div>
           </div>
         </div>
       </div>
@@ -195,7 +176,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
             style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
           >
             <SubtleWatermark />
-            <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+            <div className="p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10">
               <div>
                 <HeaderBanner 
                   title="महालक्ष्मी डेव्हलपर्स" 
@@ -311,6 +292,9 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
               </div>
+              <div className="mt-4 flex justify-center w-full">
+                <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
+              </div>
             </div>
           </div>
         </div>
@@ -333,7 +317,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
             style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'sans-serif' }}
           >
             <SubtleWatermark />
-            <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+            <div className="p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10">
               <div>
                 <HeaderBanner 
                   title="MAHALAXMI DEVELOPERS" 
@@ -449,6 +433,9 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
               </div>
+              <div className="mt-4 flex justify-center w-full">
+                <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
+              </div>
             </div>
           </div>
         </div>
@@ -468,7 +455,7 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
         style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
       >
         <SubtleWatermark />
-        <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+        <div className="p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10">
           <div>
             <div className="text-center mb-2">
               <h2 className="inline-block bg-[#1e295d] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
@@ -504,6 +491,9 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
                 <span>ग्राहकाची सही</span>
               </div>
             </div>
+            <div className="mt-4 flex justify-center w-full">
+              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
+            </div>
           </div>
         </div>
       </div>
@@ -519,7 +509,7 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
         style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'sans-serif' }}
       >
         <SubtleWatermark />
-        <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+        <div className="p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10">
           <div>
             <div className="text-center mb-2">
               <h2 className="inline-block bg-[#1e295d] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
@@ -554,6 +544,9 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
                 <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
                 <span>Customer&apos;s Signature</span>
               </div>
+            </div>
+            <div className="mt-4 flex justify-center w-full">
+              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>
         </div>

@@ -128,7 +128,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
 
     // Auto calculate words when bookingAmount changes
     if (name === 'bookingAmount') {
-      const amt = parseFloat(value);
+      const amt = parseFloat(value.replace(/,/g, ''));
       if (!isNaN(amt) && amt > 0) {
         updated.bookingAmountWords = language === 'MR' ? numberToWordsMarathi(amt) : numberToWordsEnglish(amt);
       }
@@ -136,8 +136,11 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
 
     // Auto calculate Remaining Amount: Total - Booking - Registration - Any Initial Payments
     if (name === 'totalPlotAmount' || name === 'bookingAmount' || name === 'registrationAmountText' || name === 'registrationAmount') {
-      const total = parseFloat(name === 'totalPlotAmount' ? value : updated.totalPlotAmount) || 0;
-      const booking = parseFloat(name === 'bookingAmount' ? value : updated.bookingAmount) || 0;
+      const totalStr = name === 'totalPlotAmount' ? value : updated.totalPlotAmount;
+      const bookingStr = name === 'bookingAmount' ? value : updated.bookingAmount;
+      
+      const total = parseFloat(String(totalStr).replace(/,/g, '')) || 0;
+      const booking = parseFloat(String(bookingStr).replace(/,/g, '')) || 0;
       
       const regRaw = (name === 'registrationAmountText' || name === 'registrationAmount') ? value : (updated.registrationAmount || updated.registrationAmountText);
       const regNumber = typeof regRaw === 'number' ? regRaw : (parseFloat(String(regRaw || '').replace(/[^0-9.]/g, '')) || 0);
@@ -145,8 +148,8 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
       let paid = 0;
       if (updated.payments && Array.isArray(updated.payments)) {
         updated.payments.forEach((p: any) => {
-          if (p.status === 'PAID' || p.receiptId) {
-            const amt = parseFloat(p.amount) || 0;
+          if (p.status === 'PAID' || p.receiptId || p.amount) {
+            const amt = parseFloat(String(p.amount || '').replace(/,/g, '')) || 0;
             if (amt > 0) paid += amt;
           }
         });
