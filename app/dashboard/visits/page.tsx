@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Plus, Loader2, Printer, Eye, MapPin, Phone, User, Calendar } from 'lucide-react';
+import { Search, Plus, Loader2, Printer, Eye, MapPin, Phone, User, Calendar, Edit2, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
 
 export default function VisitsPage() {
@@ -18,8 +18,9 @@ export default function VisitsPage() {
   const [selectedVisit, setSelectedVisit] = useState<any>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [lang, setLang] = useState('EN');
+  const [editingId, setEditingId] = useState<string | null>(null);
   
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     clientName: '',
     phone: '',
     visitDate: new Date().toISOString().split('T')[0],
@@ -30,7 +31,9 @@ export default function VisitsPage() {
     remarks: '',
     status: 'PENDING',
     followUpDate: ''
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
 
   useEffect(() => {
     fetchVisits();
@@ -51,23 +54,45 @@ export default function VisitsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await api.post('/visits', formData);
+      if (editingId) {
+        await api.put(`/visits/${editingId}`, formData);
+      } else {
+        await api.post('/visits', formData);
+      }
       setIsDialogOpen(false);
-      setFormData({
-        clientName: '',
-        phone: '',
-        visitDate: new Date().toISOString().split('T')[0],
-        location: '',
-        birthdayDate: '',
-        budget: '',
-        siteName: 'Vedant Park',
-        remarks: '',
-        status: 'PENDING',
-        followUpDate: ''
-      });
+      setFormData(initialFormState);
+      setEditingId(null);
       fetchVisits();
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleEdit = (visit: any) => {
+    setFormData({
+      clientName: visit.clientName || '',
+      phone: visit.phone || '',
+      visitDate: visit.visitDate ? visit.visitDate.split('T')[0] : new Date().toISOString().split('T')[0],
+      location: visit.location || '',
+      birthdayDate: visit.birthdayDate ? visit.birthdayDate.split('T')[0] : '',
+      budget: visit.budget || '',
+      siteName: visit.siteName || 'Vedant Park',
+      remarks: visit.remarks || '',
+      status: visit.status || 'PENDING',
+      followUpDate: visit.followUpDate ? visit.followUpDate.split('T')[0] : ''
+    });
+    setEditingId(visit._id);
+    setIsDialogOpen(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this visit?')) {
+      try {
+        await api.delete(`/visits/${id}`);
+        fetchVisits();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -88,10 +113,20 @@ export default function VisitsPage() {
         <Button className="bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md hover:from-red-700 hover:to-red-800" onClick={() => setIsDialogOpen(true)}>
           <Plus className="w-4 h-4 mr-2" /> New Visit
         </Button>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={(open) => {
+          setIsDialogOpen(open);
+          if (!open) {
+            setFormData(initialFormState);
+            setEditingId(null);
+          }
+        }}>
           <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[92vh] overflow-y-auto p-4 sm:p-6">
             <DialogHeader className="flex flex-row items-center justify-between">
-              <DialogTitle>{lang === 'EN' ? 'Add Client Visit' : 'नवीन क्लायंट भेट जोडा'}</DialogTitle>
+              <DialogTitle>
+                {editingId 
+                  ? (lang === 'EN' ? 'Edit Client Visit' : 'क्लायंट भेट संपादित करा') 
+                  : (lang === 'EN' ? 'Add Client Visit' : 'नवीन क्लायंट भेट जोडा')}
+              </DialogTitle>
               <Button type="button" variant="outline" size="sm" onClick={() => setLang(lang === 'EN' ? 'MR' : 'EN')} className="mr-6 text-xs">
                 {lang === 'EN' ? 'मराठी (MR)' : 'English (EN)'}
               </Button>
@@ -229,6 +264,12 @@ export default function VisitsPage() {
                       <div className="flex justify-end gap-1">
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400" onClick={() => handlePrintVisit(visit)}>
                           <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-green-600 dark:text-slate-400 dark:hover:text-green-400" onClick={() => handleEdit(visit)}>
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400" onClick={() => handleDelete(visit._id)}>
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>

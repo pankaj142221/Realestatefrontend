@@ -6,29 +6,29 @@ import { ArrowLeft, Printer, Edit2 } from 'lucide-react';
 import Link from 'next/link';
 
 export function HeaderBanner({ title, subtitle, isMarathi }: { title: string; subtitle?: string; isMarathi?: boolean }) {
-  const displayTitle = isMarathi ? (title || 'महालक्ष्मी डेव्हलपर्स') : (title ? title.toUpperCase() : 'MAHALAXMI DEVELOPERS');
+  const displayTitle = isMarathi ? (title || 'महालक्ष्मी डेव्हलपर्स') : (title ? title : 'Mahalaxmi Developers');
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-[#1e295d] bg-gradient-to-r from-[#172050] via-[#1e2a6b] to-[#172050] px-3 sm:px-4 py-2 sm:py-2.5 mb-2.5 shadow-sm text-white">
-      <div className="relative z-10 flex items-center justify-start w-full gap-2.5 sm:gap-4">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-[94px] md:h-[94px] lg:w-[98px] lg:h-[98px] rounded-full border-2 border-white bg-white shadow-md p-1 sm:p-1.5 flex items-center justify-center shrink-0 overflow-hidden">
+    <div className="flex items-center gap-3 sm:gap-4 pb-2 mb-1 border-b-2 border-[#8b1a1a]">
+      <div className="flex items-center gap-1 shrink-0">
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border border-slate-200 shadow-sm p-0.5 flex items-center justify-center overflow-hidden">
           <img src="/rightsidelogo.png" className="w-full h-full object-contain rounded-full" alt="Mahalaxmi Group" />
         </div>
-        
-        <div className="flex flex-col justify-center flex-grow text-center min-w-0 pr-1 sm:pr-2">
-          <h1 className={`${
-            isMarathi 
-              ? 'text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] font-black tracking-wide' 
-              : 'text-lg sm:text-2xl md:text-[28px] lg:text-[33px] font-black tracking-wider uppercase'
-          } text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.45)] whitespace-nowrap overflow-visible`}>
-            {displayTitle}
-          </h1>
-          {subtitle && (
-            <p className="text-[9px] sm:text-[10px] md:text-[11.5px] font-medium text-blue-100 tracking-wider uppercase mt-1 leading-tight">
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <img src="/rightsidelogo.png" className="h-7 sm:h-8 object-contain opacity-80 ml-1" alt="Logo" />
+      </div>
+      <div className="flex flex-col justify-center min-w-0">
+        <h1 className={`${
+          isMarathi 
+            ? 'text-2xl sm:text-3xl md:text-[34px] font-black' 
+            : 'text-xl sm:text-2xl md:text-[28px] font-black'
+        } text-slate-900 leading-tight tracking-tight`}>
+          {displayTitle}
+        </h1>
+        {subtitle && (
+          <p className="text-[10px] sm:text-[11px] text-slate-500 tracking-wide uppercase mt-0.5">
+            {subtitle}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -47,7 +47,7 @@ export function SubtleWatermark() {
 
 export function FieldLine({ label, value, bold, icon }: { label: string; value?: string; bold?: boolean; icon?: string }) {
   return (
-    <div className={`flex flex-wrap sm:flex-nowrap items-baseline text-[12.5px] sm:text-[13.5px] md:text-[14px] ${bold ? 'text-[#1e295d] font-bold' : ''}`}>
+    <div className={`flex flex-wrap sm:flex-nowrap items-baseline text-[12.5px] sm:text-[13.5px] md:text-[14px] ${bold ? 'text-[#8b1a1a] font-bold' : ''}`}>
       {icon && <span className="mr-1 mt-[2px] text-[10px]">{icon}</span>}
       <span className="font-bold shrink-0">{label} :</span>
       <span className="flex-1 ml-1.5 text-black font-bold break-words min-w-0" style={{ fontFamily: "var(--font-nunito-sans), 'Nunito Sans', sans-serif" }}>{value || '\u00A0'}</span>
@@ -96,11 +96,11 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
           style={{ minHeight: '148.5mm', padding: '6mm 8mm', fontFamily: isEN ? 'sans-serif' : 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
         >
           <SubtleWatermark />
-          <div className="relative z-10 border-2 sm:border-[2.5px] border-[#1e295d] p-3 sm:p-4 rounded-sm">
+          <div className="relative z-10 border border-[#8b1a1a] p-3 sm:p-4 rounded-sm">
             <HeaderBanner title={t.title} isMarathi={!isEN} />
             <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 mt-2 mb-3 text-[11px] sm:text-[12px]">
               <div><span className="font-bold">{t.no}</span> <span className="px-2 min-w-[50px] inline-block font-bold">{form.formNumber}</span></div>
-              <div className="bg-[#1e295d] text-white border border-[#1e295d] px-4 sm:px-6 py-0.5 font-extrabold text-[12px] sm:text-[13px] tracking-wider rounded-md shadow-xs">
+              <div className="bg-[#8b1a1a] text-white border border-[#8b1a1a] px-4 sm:px-6 py-0.5 font-extrabold text-[12px] sm:text-[13px] tracking-wider rounded-md shadow-xs">
                 {t.receipt}
               </div>
               <div><span className="font-bold">{t.date}</span> <span className="px-2 inline-block min-w-[70px] font-bold">{new Date(form.createdAt).toLocaleDateString(isEN ? 'en-IN' : 'mr-IN')}</span></div>
@@ -156,10 +156,10 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
             </div>
 
             <div className="flex items-stretch mt-3 sm:mt-4 mb-3">
-              <div className="bg-[#1e295d] text-white border-2 border-[#1e295d] border-r-0 flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 text-lg sm:text-[20px] font-black rounded-l">
+              <div className="bg-[#8b1a1a] text-white border border-[#8b1a1a] border-r-0 flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 text-lg sm:text-[20px] font-black rounded-l">
                 ₹
               </div>
-              <div className="flex-1 border-2 border-[#1e295d] rounded-r flex items-center px-3 text-base sm:text-[18px] font-black text-black bg-slate-50">
+              <div className="flex-1 border border-[#8b1a1a] rounded-r flex items-center px-3 text-base sm:text-[18px] font-black text-black bg-slate-50">
                 {d.amount || '\u00A0'}
               </div>
             </div>
@@ -169,22 +169,16 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
               <div className="flex justify-around sm:justify-end gap-6 w-full sm:w-auto">
                 <div className="text-center">
                   <div className="border-t border-black w-28 sm:w-36 mb-1 mt-4"></div>
-                  <span className="font-bold text-[#1e295d] text-[10px] sm:text-[11px]">{t.signature1}</span>
+                  <span className="font-bold text-[#8b1a1a] text-[10px] sm:text-[11px]">{t.signature1}</span>
                 </div>
                 <div className="text-center">
                   <div className="border-t border-black w-28 sm:w-36 mb-1 mt-4"></div>
-                  <span className="font-bold text-[#1e295d] text-[10px] sm:text-[11px]">{t.signature2}</span>
+                  <span className="font-bold text-[#8b1a1a] text-[10px] sm:text-[11px]">{t.signature2}</span>
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
 
             
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
 
           </div>
         </div>
@@ -204,7 +198,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
             style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
           >
             <SubtleWatermark />
-            <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+            <div className="border border-[#8b1a1a] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
               <div>
                 <HeaderBanner 
                   title="महालक्ष्मी डेव्हलपर्स" 
@@ -213,7 +207,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
 
                 <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 text-[11px] sm:text-[12px] mb-3 mt-1">
                   <div><span className="font-bold">नंबर:</span> {form.formNumber}</div>
-                  <div className="bg-[#1e295d] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
+                  <div className="bg-[#8b1a1a] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
                     आनंदी ग्राहकांची माहिती
                   </div>
                   <div><span className="font-bold">दिनांक:</span> {new Date(form.createdAt).toLocaleDateString('mr-IN')}</div>
@@ -232,7 +226,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
 
-                <div className="bg-[#1e295d] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
+                <div className="bg-[#8b1a1a] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
                   {d.siteName || 'वेदांत पार्क'}
                 </div>
                 <div className="text-xs sm:text-[12px] space-y-2.5 sm:space-y-3 mb-3.5">
@@ -244,7 +238,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
 
-                <div className="bg-[#1e295d] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
+                <div className="bg-[#8b1a1a] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
                   पेमेंटची माहिती
                 </div>
                 <div className="text-xs sm:text-[12px] space-y-2.5 sm:space-y-3 mb-3">
@@ -283,10 +277,10 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                     <table className="w-full border-collapse text-[9px] sm:text-[10px]">
                       <thead>
                         <tr>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">दिनांक</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">रक्कम</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">प्रकार</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">रिमार्क</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">दिनांक</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">रक्कम</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">प्रकार</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">रिमार्क</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -309,25 +303,19 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                 <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3 sm:gap-0 text-[10px] sm:text-[11px]">
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
-                    <span className="font-bold text-[#1e295d]">ग्राहकाची सही</span>
+                    <span className="font-bold text-[#8b1a1a]">ग्राहकाची सही</span>
                   </div>
                   <div className="text-center text-[10px]">
                     <span>रेफरन्स: <span className="italic font-bold">{d.reference || '____________________'}</span></span>
                   </div>
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
-                    <span className="font-bold text-[#1e295d]">पैसे स्वीकारणाऱ्याची सही</span>
+                    <span className="font-bold text-[#8b1a1a]">पैसे स्वीकारणाऱ्याची सही</span>
                   </div>
                 </div>
               </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
 
               
-              <div className="mt-4 flex justify-center w-full">
-                <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-              </div>
               
             </div>
           </div>
@@ -351,7 +339,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
             style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'sans-serif' }}
           >
             <SubtleWatermark />
-            <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+            <div className="border border-[#8b1a1a] p-2 sm:p-[4.5mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
               <div>
                 <HeaderBanner 
                   title="MAHALAXMI DEVELOPERS" 
@@ -360,7 +348,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
 
                 <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 text-[11px] sm:text-[12px] mb-3 mt-1">
                   <div><span className="font-bold">No:</span> {form.formNumber}</div>
-                  <div className="bg-[#1e295d] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
+                  <div className="bg-[#8b1a1a] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
                     Happy Customer Information
                   </div>
                   <div><span className="font-bold">Date:</span> {new Date(form.createdAt).toLocaleDateString('en-IN')}</div>
@@ -379,7 +367,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
 
-                <div className="bg-[#1e295d] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
+                <div className="bg-[#8b1a1a] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
                   {d.siteName || 'Vedant Park'}
                 </div>
                 <div className="text-xs sm:text-[12px] space-y-2.5 sm:space-y-3 mb-3.5">
@@ -391,7 +379,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                   </div>
                 </div>
 
-                <div className="bg-[#1e295d] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
+                <div className="bg-[#8b1a1a] text-white text-center py-1 sm:py-1.5 font-bold text-xs sm:text-[14px] mb-2.5 rounded-md shadow-xs tracking-wide">
                   Payment Information
                 </div>
                 <div className="text-xs sm:text-[12px] space-y-2.5 sm:space-y-3 mb-3">
@@ -430,10 +418,10 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                     <table className="w-full border-collapse text-[9px] sm:text-[10px]">
                       <thead>
                         <tr>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">Date</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">Amount</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">Type</th>
-                          <th className="border border-slate-300 p-1 bg-[#1e295d] text-white text-left font-bold">Remark</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Date</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Amount</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Type</th>
+                          <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Remark</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -456,20 +444,17 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                 <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3 sm:gap-0 text-[10px] sm:text-[11px]">
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
-                    <span className="font-bold text-[#1e295d]">Customer Signature</span>
+                    <span className="font-bold text-[#8b1a1a]">Customer Signature</span>
                   </div>
                   <div className="text-center text-[10px]">
                     <span>Reference: <span className="italic font-bold">{d.reference || '____________________'}</span></span>
                   </div>
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
-                    <span className="font-bold text-[#1e295d]">Authorized Signature</span>
+                    <span className="font-bold text-[#8b1a1a]">Authorized Signature</span>
                   </div>
                 </div>
               </div>
-            <div className="mt-4 flex justify-center w-full">
-              <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
-            </div>
 
             </div>
           </div>
@@ -490,10 +475,10 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
         style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
       >
         <SubtleWatermark />
-        <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+        <div className="border border-[#8b1a1a] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
           <div>
             <div className="text-center mb-2">
-              <h2 className="inline-block bg-[#1e295d] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
+              <h2 className="inline-block bg-[#8b1a1a] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
                 ★ नियम व अटी ★
               </h2>
             </div>
@@ -519,15 +504,18 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
           </div>
         
           <div className="mt-2">
-            <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#1e295d]">
+            <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a]">
               <div className="text-xs sm:text-[13px]">धन्यवाद!</div>
               <div className="text-center">
                 <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
                 <span>ग्राहकाची सही</span>
               </div>
             </div>
-
-            <div className="mt-4 flex justify-center w-full">
+            <div className="mt-3 flex flex-col items-center w-full">
+              <div className="flex items-center gap-2 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a] mb-2">
+                <span>📞 Customer Support:</span>
+                <span>+91 83788 14714</span>
+              </div>
               <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>
@@ -545,10 +533,10 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
         style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'sans-serif' }}
       >
         <SubtleWatermark />
-        <div className="border-2 sm:border-[2.5px] border-[#1e295d] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
+        <div className="border border-[#8b1a1a] p-2 sm:p-[4mm] h-full flex flex-col justify-between flex-grow relative z-10 rounded-sm">
           <div>
             <div className="text-center mb-2">
-              <h2 className="inline-block bg-[#1e295d] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
+              <h2 className="inline-block bg-[#8b1a1a] text-white px-5 sm:px-7 py-1 rounded-full font-bold text-sm sm:text-[17px] shadow-xs tracking-wide">
                 ★ Terms & Conditions ★
               </h2>
             </div>
@@ -574,15 +562,18 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
           </div>
         
           <div className="mt-2">
-            <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#1e295d]">
+            <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a]">
               <div className="text-xs sm:text-[13px]">Thank You!</div>
               <div className="text-center">
                 <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
                 <span>Customer&apos;s Signature</span>
               </div>
             </div>
-
-            <div className="mt-4 flex justify-center w-full">
+            <div className="mt-3 flex flex-col items-center w-full">
+              <div className="flex items-center gap-2 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a] mb-2">
+                <span>📞 Customer Support:</span>
+                <span>+91 83788 14714</span>
+              </div>
               <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>

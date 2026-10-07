@@ -133,7 +133,7 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 4mm 5mm;
   }
 
   html, body {
@@ -180,12 +180,12 @@
 
   /* Page 1: Exact A4 printable height, page break after to go to Page 2 */
   .print-sheet-1 {
-    width: 210mm !important;
-    height: 285mm !important;
-    max-height: 285mm !important;
-    min-height: 285mm !important;
+    width: 200mm !important;
+    height: 280mm !important;
+    max-height: 280mm !important;
+    min-height: 280mm !important;
     margin: 0 auto !important;
-    padding: 5mm 8mm !important;
+    padding: 4mm 5mm !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     page-break-before: avoid !important;
