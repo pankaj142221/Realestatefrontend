@@ -9,19 +9,16 @@ export function HeaderBanner({ title, subtitle, isMarathi }: { title: string; su
   const displayTitle = isMarathi ? (title || 'महालक्ष्मी डेव्हलपर्स') : (title ? title : 'Mahalaxmi Developers');
 
   return (
-    <div className="flex items-center gap-3 sm:gap-4 pb-2 mb-1 border-b-2 border-[#8b1a1a]">
-      <div className="flex items-center gap-1 shrink-0">
-        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border border-slate-200 shadow-sm p-0.5 flex items-center justify-center overflow-hidden">
-          <img src="/rightsidelogo.png" className="w-full h-full object-contain rounded-full" alt="Mahalaxmi Group" />
-        </div>
-        <img src="/rightsidelogo.png" className="h-7 sm:h-8 object-contain opacity-80 ml-1" alt="Logo" />
+    <div className="flex items-center gap-3 sm:gap-4 pb-2 mb-1 border-b-[1.5px] border-[#8b1a1a]">
+      <div className="flex items-center shrink-0 pl-1">
+        <img src="/mahalaxmi-group-logo.png" className="h-16 sm:h-20 object-contain" alt="Mahalaxmi Group" />
       </div>
       <div className="flex flex-col justify-center min-w-0">
         <h1 className={`${
           isMarathi 
-            ? 'text-2xl sm:text-3xl md:text-[34px] font-black' 
-            : 'text-xl sm:text-2xl md:text-[28px] font-black'
-        } text-slate-900 leading-tight tracking-tight`}>
+            ? 'text-[28px] sm:text-[34px] md:text-[40px] font-bold' 
+            : 'text-[26px] sm:text-[32px] md:text-[38px] font-bold'
+        } text-[#8b1a1a] leading-tight tracking-tight font-serif`}>
           {displayTitle}
         </h1>
         {subtitle && (
@@ -506,16 +503,17 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
           <div className="mt-2">
             <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a]">
               <div className="text-xs sm:text-[13px]">धन्यवाद!</div>
-              <div className="text-center">
-                <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
-                <span>ग्राहकाची सही</span>
+              <div className="flex flex-col items-end">
+                <div className="text-center mb-1">
+                  <div className="border-t border-black w-32 sm:w-40 mb-1 mt-2 sm:mt-3"></div>
+                  <span>ग्राहकाची सही</span>
+                </div>
+                <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] mt-1">
+                  📞 Customer Support: +91 83788 14714
+                </div>
               </div>
             </div>
-            <div className="mt-3 flex flex-col items-center w-full">
-              <div className="flex items-center gap-2 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a] mb-2">
-                <span>📞 Customer Support:</span>
-                <span>+91 83788 14714</span>
-              </div>
+            <div className="mt-2 flex justify-center w-full">
               <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>
@@ -564,16 +562,17 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
           <div className="mt-2">
             <div className="flex justify-between items-end pt-2 border-t border-slate-300 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a]">
               <div className="text-xs sm:text-[13px]">Thank You!</div>
-              <div className="text-center">
-                <div className="border-t border-black w-28 sm:w-36 mb-1 mt-2 sm:mt-3"></div>
-                <span>Customer&apos;s Signature</span>
+              <div className="flex flex-col items-end">
+                <div className="text-center mb-1">
+                  <div className="border-t border-black w-32 sm:w-40 mb-1 mt-2 sm:mt-3"></div>
+                  <span>Customer&apos;s Signature</span>
+                </div>
+                <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] mt-1">
+                  📞 Customer Support: +91 83788 14714
+                </div>
               </div>
             </div>
-            <div className="mt-3 flex flex-col items-center w-full">
-              <div className="flex items-center gap-2 text-[11px] sm:text-[12px] font-bold text-[#8b1a1a] mb-2">
-                <span>📞 Customer Support:</span>
-                <span>+91 83788 14714</span>
-              </div>
+            <div className="mt-2 flex justify-center w-full">
               <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
             </div>
           </div>
