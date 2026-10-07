@@ -13,12 +13,12 @@ export function HeaderBanner({ title, subtitle, isMarathi }: { title: string; su
       <div className="flex items-center shrink-0 pl-1">
         <img src="/mahalaxmi-group-logo.png" className="h-16 sm:h-20 object-contain" alt="Mahalaxmi Group" />
       </div>
-      <div className="flex flex-col justify-center min-w-0">
+      <div className="flex flex-col justify-center min-w-0 flex-1">
         <h1 className={`${
           isMarathi 
-            ? 'text-[22px] sm:text-[28px] md:text-[32px] font-bold' 
+            ? 'text-[26px] sm:text-[32px] md:text-[38px] font-bold' 
             : 'text-[26px] sm:text-[32px] md:text-[38px] font-bold'
-        } text-[#8b1a1a] leading-tight tracking-tight font-serif`}>
+        } text-[#8b1a1a] leading-tight tracking-tight font-serif flex-grow text-center`}>
           {displayTitle}
         </h1>
         {subtitle && (
