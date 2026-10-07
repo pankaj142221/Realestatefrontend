@@ -16,7 +16,7 @@ export function HeaderBanner({ title, subtitle, isMarathi }: { title: string; su
       <div className="flex flex-col justify-center min-w-0 flex-1">
         <h1 className={`${
           isMarathi 
-            ? 'text-[26px] sm:text-[32px] md:text-[38px] font-bold' 
+            ? 'text-[32px] sm:text-[40px] md:text-[48px] font-bold' 
             : 'text-[26px] sm:text-[32px] md:text-[38px] font-bold'
         } text-[#8b1a1a] leading-tight tracking-tight font-serif flex-grow text-center`}>
           {displayTitle}
