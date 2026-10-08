@@ -518,14 +518,15 @@ export function TermsAndConditionsPage({ fontClass, customerSupportNumber }: { f
                 <span>ग्राहकाची सही</span>
               </div>
             </div>
-            <div className="flex items-end justify-between mt-2">
-              <div></div>
-              <div className="flex justify-center flex-1">
+            <div className="relative mt-2 flex items-end">
+              <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
                 <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
               </div>
-              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] text-right">
-                <div>📞 Customer Support: +91 83788 14714</div>
-                {customerSupportNumber && <div>📞 {customerSupportNumber}</div>}
+              <div className="w-full text-right text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] relative z-10 pb-1">
+                <div>📞 Customer Support: +91 84321 10111</div>
+                {customerSupportNumber && (
+                  <div>📞 {customerSupportNumber.startsWith('+') ? customerSupportNumber : `+91 ${customerSupportNumber}`}</div>
+                )}
               </div>
             </div>
           </div>
@@ -579,14 +580,15 @@ export function TermsAndConditionsEnglishPage({ fontClass, customerSupportNumber
                 <span>Customer&apos;s Signature</span>
               </div>
             </div>
-            <div className="flex items-end justify-between mt-2">
-              <div></div>
-              <div className="flex justify-center flex-1">
+            <div className="relative mt-2 flex items-end">
+              <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
                 <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
               </div>
-              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] text-right">
-                <div>📞 Customer Support: +91 83788 14714</div>
-                {customerSupportNumber && <div>📞 {customerSupportNumber}</div>}
+              <div className="w-full text-right text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] relative z-10 pb-1">
+                <div>📞 Customer Support: +91 84321 10111</div>
+                {customerSupportNumber && (
+                  <div>📞 {customerSupportNumber.startsWith('+') ? customerSupportNumber : `+91 ${customerSupportNumber}`}</div>
+                )}
               </div>
             </div>
           </div>
