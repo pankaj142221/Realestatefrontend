@@ -50,6 +50,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
     payments: [],
     reference: '',
     references: [],
+    customerSupportNumber: '',
   });
 
   const labels = {
@@ -196,12 +197,6 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
     setFormData({ ...formData, payments: newPayments, remainingAmount: updatedRemaining });
   };
 
-  const handleReferenceChange = (index: number, field: string, value: string) => {
-    const newReferences = [...(formData.references || [])];
-    newReferences[index] = { ...newReferences[index], [field]: value };
-    setFormData({ ...formData, references: newReferences });
-  };
-
   const handleSubmit = async (status: 'DRAFT' | 'SAVED') => {
     if (status === 'SAVED') setLoading(true);
     else setSavingDraft(true);
@@ -215,7 +210,6 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
         }));
       
       const cleanReferences = (formData.references || []).filter((r: any) => typeof r === 'string' && r.trim() !== '');
-      const cleanContacts = (formData.extraContacts || []).filter((c: any) => typeof c === 'string' && c.trim() !== '');
 
       const payload = {
         formType: 'CUSTOMER_INFO',
@@ -223,8 +217,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
         formData: {
           ...formData,
           payments: cleanPayments,
-          references: cleanReferences,
-          extraContacts: cleanContacts
+          references: cleanReferences
         },
         status
       };
@@ -443,35 +436,6 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
             </Button>
           </div>
 
-          {/* Extra Contacts */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-base sm:text-lg text-slate-700 dark:text-slate-200 border-b dark:border-slate-700 pb-2">{language === 'MR' ? 'इतर संपर्क क्रमांक' : 'Other Contact Numbers'}</h3>
-            <div className="space-y-3">
-              {(formData.extraContacts || []).map((contact: string, idx: number) => (
-                <div key={idx} className="flex gap-2 items-center">
-                  <Input 
-                    placeholder={language === 'MR' ? 'संपर्क क्रमांक ' + (idx + 1) : 'Contact Number ' + (idx + 1)}
-                    value={contact} 
-                    onChange={(e) => {
-                      const newContacts = [...(formData.extraContacts || [])];
-                      newContacts[idx] = e.target.value;
-                      setFormData({ ...formData, extraContacts: newContacts });
-                    }} 
-                  />
-                  <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 h-10 w-10 shrink-0" onClick={() => {
-                    const newContacts = (formData.extraContacts || []).filter((_: any, i: number) => i !== idx);
-                    setFormData({ ...formData, extraContacts: newContacts });
-                  }}>
-                    &times;
-                  </Button>
-                </div>
-              ))}
-            </div>
-            <Button type="button" variant="outline" size="sm" onClick={() => setFormData({...formData, extraContacts: [...(formData.extraContacts || []), '']})} className="text-xs">
-              + {language === 'MR' ? 'संपर्क क्रमांक जोडा' : 'Add Contact Number'}
-            </Button>
-          </div>
-
           {/* References */}
           <div className="space-y-4">
             <h3 className="font-semibold text-base sm:text-lg text-slate-700 dark:text-slate-200 border-b dark:border-slate-700 pb-2">{t.reference}</h3>
@@ -502,6 +466,22 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
             <Button type="button" variant="outline" size="sm" onClick={() => setFormData({...formData, references: [...(formData.references || []), '']})} className="text-xs">
               + Add Reference
             </Button>
+          </div>
+
+          <hr className="border-slate-200 dark:border-slate-700" />
+
+          {/* Customer Support Number */}
+          <div className="space-y-2">
+            <Label className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+              {language === 'MR' ? '📞 अतिरिक्त संपर्क क्रमांक (T&C वर दुसरा नंबर दाखवण्यासाठी - ऐच्छिक)' : '📞 Additional Support Number (optional — shown below the main number on T&C)'}
+            </Label>
+            <Input
+              name="customerSupportNumber"
+              value={formData.customerSupportNumber || ''}
+              onChange={handleInputChange}
+              placeholder={language === 'MR' ? 'उदा. +91 98765 43210' : 'e.g. +91 98765 43210'}
+              className="font-medium"
+            />
           </div>
 
         </CardContent>

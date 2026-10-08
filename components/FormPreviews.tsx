@@ -216,9 +216,6 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-x-6 sm:gap-y-3">
                     <FieldLine label="व्हॉट्सॲप नंबर" value={d.whatsappNo} icon="📱" />
                     <FieldLine label="पर्यायी नंबर" value={d.alternateNumber} icon="💬" />
-                    {d.extraContacts && d.extraContacts.map((c: string, idx: number) => (
-                      <FieldLine key={idx} label={`संपर्क क्र. ${idx + 1}`} value={c} icon="📞" />
-                    ))}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-x-6 sm:gap-y-3 mt-2 sm:mt-3">
                     <FieldLine label="आधार कार्ड नं." value={d.aadharNo} icon="📄" />
@@ -305,17 +302,13 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
                     <span className="font-bold text-[#8b1a1a]">ग्राहकाची सही</span>
                   </div>
-                  <div className="text-center text-[10px]">
-                    {d.references && d.references.length > 0 ? (
-                      <div className="flex flex-col items-center gap-0.5">
-                        <span className="font-bold">रेफरन्स:</span>
-                        {d.references.map((r: any, idx: number) => (
-                          <span key={idx} className="italic font-bold">{typeof r === 'string' ? r : (r.name + (r.phone ? ` (${r.phone})` : ''))}</span>
-                        ))}
-                      </div>
-                    ) : (
-                      <span>रेफरन्स: <span className="italic font-bold">{d.reference || '____________________'}</span></span>
-                    )}
+                  <div className="text-center text-[10px] max-w-[120px]">
+                    <span className="font-bold">रेफरन्स: </span>
+                    <span className="italic font-bold">
+                      {d.references && d.references.length > 0
+                        ? d.references.map((r: any) => typeof r === 'string' ? r : r.name).join(', ')
+                        : (d.reference || '____________________')}
+                    </span>
                   </div>
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
@@ -331,7 +324,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
         </div>
         
         {/* Page 2: Terms & Conditions */}
-        <TermsAndConditionsPage fontClass={fontClass} />
+        <TermsAndConditionsPage fontClass={fontClass} customerSupportNumber={d.customerSupportNumber} />
       </div>
     </div>
   );
@@ -369,9 +362,6 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-x-6 sm:gap-y-3">
                     <FieldLine label="WhatsApp No." value={d.whatsappNo} icon="📱" />
                     <FieldLine label="Alternate No." value={d.alternateNumber} icon="💬" />
-                    {d.extraContacts && d.extraContacts.map((c: string, idx: number) => (
-                      <FieldLine key={idx} label={`Contact No. ${idx + 1}`} value={c} icon="📞" />
-                    ))}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-x-6 sm:gap-y-3 mt-2 sm:mt-3">
                     <FieldLine label="Aadhar Card No." value={d.aadharNo} icon="📄" />
@@ -458,17 +448,13 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
                     <span className="font-bold text-[#8b1a1a]">Customer Signature</span>
                   </div>
-                  <div className="text-center text-[10px]">
-                    {d.references && d.references.length > 0 ? (
-                      <div className="flex flex-col items-center gap-0.5">
-                        <span className="font-bold">Reference:</span>
-                        {d.references.map((r: any, idx: number) => (
-                          <span key={idx} className="italic font-bold">{typeof r === 'string' ? r : (r.name + (r.phone ? ` (${r.phone})` : ''))}</span>
-                        ))}
-                      </div>
-                    ) : (
-                      <span>Reference: <span className="italic font-bold">{d.reference || '____________________'}</span></span>
-                    )}
+                  <div className="text-center text-[10px] max-w-[120px]">
+                    <span className="font-bold">Reference: </span>
+                    <span className="italic font-bold">
+                      {d.references && d.references.length > 0
+                        ? d.references.map((r: any) => typeof r === 'string' ? r : r.name).join(', ')
+                        : (d.reference || '____________________')}
+                    </span>
                   </div>
                   <div className="text-center">
                     <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
@@ -482,13 +468,13 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
         </div>
 
         {/* Page 2: Terms & Conditions */}
-        <TermsAndConditionsEnglishPage fontClass={fontClass} />
+        <TermsAndConditionsEnglishPage fontClass={fontClass} customerSupportNumber={d.customerSupportNumber} />
       </div>
     </div>
   );
 }
 
-export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
+export function TermsAndConditionsPage({ fontClass, customerSupportNumber }: { fontClass?: string; customerSupportNumber?: string }) {
   return (
     <div className="flex justify-center w-full overflow-x-auto py-1 print:py-0 print:block">
       <div
@@ -537,8 +523,9 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
               <div className="flex justify-center flex-1">
                 <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
               </div>
-              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] whitespace-nowrap">
-                📞 Customer Support: +91 83788 14714
+              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] text-right">
+                <div>📞 Customer Support: +91 83788 14714</div>
+                {customerSupportNumber && <div>📞 {customerSupportNumber}</div>}
               </div>
             </div>
           </div>
@@ -548,7 +535,7 @@ export function TermsAndConditionsPage({ fontClass }: { fontClass?: string }) {
   );
 }
 
-export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: string }) {
+export function TermsAndConditionsEnglishPage({ fontClass, customerSupportNumber }: { fontClass?: string; customerSupportNumber?: string }) {
   return (
     <div className="flex justify-center w-full overflow-x-auto py-1 print:py-0 print:block">
       <div
@@ -597,8 +584,9 @@ export function TermsAndConditionsEnglishPage({ fontClass }: { fontClass?: strin
               <div className="flex justify-center flex-1">
                 <img src="/mahalaxmi-group-logo.png" className="h-14 sm:h-16 object-contain opacity-80" alt="Footer Logo" />
               </div>
-              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] whitespace-nowrap">
-                📞 Customer Support: +91 83788 14714
+              <div className="text-[10px] sm:text-[11px] font-bold text-[#8b1a1a] text-right">
+                <div>📞 Customer Support: +91 83788 14714</div>
+                {customerSupportNumber && <div>📞 {customerSupportNumber}</div>}
               </div>
             </div>
           </div>
