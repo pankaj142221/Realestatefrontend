@@ -49,6 +49,7 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
     remainingAmount: '',
     payments: [],
     reference: '',
+    references: [],
   });
 
   const labels = {
@@ -81,6 +82,8 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
       amount: 'Amount',
       remark: 'Remark',
       reference: 'Reference',
+      referenceName: 'Reference Name',
+      referencePhone: 'Reference Contact',
       saveDraft: 'Save Draft',
       saveForm: 'Save & Complete'
     },
@@ -114,6 +117,8 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
       amount: 'रक्कम',
       remark: 'रिमार्क',
       reference: 'रेफरन्स',
+      referenceName: 'रेफरन्सचे नाव',
+      referencePhone: 'रेफरन्सचा नंबर',
       saveDraft: 'मसुदा जतन करा',
       saveForm: 'फॉर्म सेव्ह करा'
     }
@@ -191,6 +196,12 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
     setFormData({ ...formData, payments: newPayments, remainingAmount: updatedRemaining });
   };
 
+  const handleReferenceChange = (index: number, field: string, value: string) => {
+    const newReferences = [...(formData.references || [])];
+    newReferences[index] = { ...newReferences[index], [field]: value };
+    setFormData({ ...formData, references: newReferences });
+  };
+
   const handleSubmit = async (status: 'DRAFT' | 'SAVED') => {
     if (status === 'SAVED') setLoading(true);
     else setSavingDraft(true);
@@ -202,12 +213,18 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
           ...p,
           status: p.status || 'SCHEDULED'
         }));
+      
+      const cleanReferences = (formData.references || []).filter((r: any) => typeof r === 'string' && r.trim() !== '');
+      const cleanContacts = (formData.extraContacts || []).filter((c: any) => typeof c === 'string' && c.trim() !== '');
+
       const payload = {
         formType: 'CUSTOMER_INFO',
         language,
         formData: {
           ...formData,
-          payments: cleanPayments
+          payments: cleanPayments,
+          references: cleanReferences,
+          extraContacts: cleanContacts
         },
         status
       };
@@ -426,9 +443,65 @@ export default function FormEditor({ language, initialData, formId }: FormEditor
             </Button>
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-xs sm:text-sm">{t.reference}</Label>
-            <Input name="reference" value={formData.reference} onChange={handleInputChange} className={fontClass} />
+          {/* Extra Contacts */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-base sm:text-lg text-slate-700 dark:text-slate-200 border-b dark:border-slate-700 pb-2">{language === 'MR' ? 'इतर संपर्क क्रमांक' : 'Other Contact Numbers'}</h3>
+            <div className="space-y-3">
+              {(formData.extraContacts || []).map((contact: string, idx: number) => (
+                <div key={idx} className="flex gap-2 items-center">
+                  <Input 
+                    placeholder={language === 'MR' ? 'संपर्क क्रमांक ' + (idx + 1) : 'Contact Number ' + (idx + 1)}
+                    value={contact} 
+                    onChange={(e) => {
+                      const newContacts = [...(formData.extraContacts || [])];
+                      newContacts[idx] = e.target.value;
+                      setFormData({ ...formData, extraContacts: newContacts });
+                    }} 
+                  />
+                  <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 h-10 w-10 shrink-0" onClick={() => {
+                    const newContacts = (formData.extraContacts || []).filter((_: any, i: number) => i !== idx);
+                    setFormData({ ...formData, extraContacts: newContacts });
+                  }}>
+                    &times;
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <Button type="button" variant="outline" size="sm" onClick={() => setFormData({...formData, extraContacts: [...(formData.extraContacts || []), '']})} className="text-xs">
+              + {language === 'MR' ? 'संपर्क क्रमांक जोडा' : 'Add Contact Number'}
+            </Button>
+          </div>
+
+          {/* References */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-base sm:text-lg text-slate-700 dark:text-slate-200 border-b dark:border-slate-700 pb-2">{t.reference}</h3>
+            
+            <div className="space-y-3">
+              {(formData.references || []).map((ref: string, idx: number) => (
+                <div key={idx} className="flex gap-2 items-center">
+                  <Input 
+                    className={fontClass} 
+                    placeholder={language === 'MR' ? 'रेफरन्स ' + (idx + 1) : 'Reference ' + (idx + 1)}
+                    value={ref} 
+                    onChange={(e) => {
+                      const newReferences = [...(formData.references || [])];
+                      newReferences[idx] = e.target.value;
+                      setFormData({ ...formData, references: newReferences });
+                    }} 
+                  />
+                  <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 h-10 w-10 shrink-0" onClick={() => {
+                    const newReferences = (formData.references || []).filter((_: any, i: number) => i !== idx);
+                    setFormData({ ...formData, references: newReferences });
+                  }}>
+                    &times;
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+            <Button type="button" variant="outline" size="sm" onClick={() => setFormData({...formData, references: [...(formData.references || []), '']})} className="text-xs">
+              + Add Reference
+            </Button>
           </div>
 
         </CardContent>
