@@ -386,6 +386,14 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                       <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
                       <span className="font-bold text-[#8b1a1a]">ग्राहकाची सही</span>
                     </div>
+                    <div className="text-center text-[10px] max-w-[120px]">
+                      <span className="font-bold">रेफरन्स: </span>
+                      <span className="italic font-bold">
+                        {d.references && d.references.length > 0
+                          ? d.references.map((r: any) => typeof r === 'string' ? r : r.name).join(', ')
+                          : (d.reference || '____________________')}
+                      </span>
+                    </div>
                     <div className="text-center">
                       <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
                       <span className="font-bold text-[#8b1a1a]">पैसे स्वीकारणाऱ्याची सही</span>
@@ -605,6 +613,14 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                     <div className="text-center">
                       <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
                       <span className="font-bold text-[#8b1a1a]">Customer Signature</span>
+                    </div>
+                    <div className="text-center text-[10px] max-w-[120px]">
+                      <span className="font-bold">Reference: </span>
+                      <span className="italic font-bold">
+                        {d.references && d.references.length > 0
+                          ? d.references.map((r: any) => typeof r === 'string' ? r : r.name).join(', ')
+                          : (d.reference || '____________________')}
+                      </span>
                     </div>
                     <div className="text-center">
                       <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
