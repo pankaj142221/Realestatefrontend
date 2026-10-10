@@ -185,6 +185,20 @@ export function ReceiptPreview({ form, d, fontClass, handlePrint }: any) {
 }
 
 export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, previewLang, setPreviewLang }: any) {
+  const payments = d.payments || [];
+  const firstPagePayments = payments.slice(0, 10);
+  const remainingPayments = payments.slice(10);
+  
+  const chunkArray = (arr: any[], size: number) => {
+    const chunked = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunked.push(arr.slice(i, i + size));
+    }
+    return chunked;
+  };
+
+  const paymentPages = remainingPayments.length > 0 ? chunkArray(remainingPayments, 25) : [];
+
   return (
     <div className={`space-y-6 print:space-y-0 w-full ${fontClass}`}>
       <div id="print-area" className="print-container space-y-6 print:space-y-0 w-full">
@@ -281,7 +295,7 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
                         </tr>
                       </thead>
                       <tbody>
-                        {d.payments.map((p: any, i: number) => (
+                        {firstPagePayments.map((p: any, i: number) => (
                           <tr key={i}>
                             <td className="border border-slate-300 p-1">{p.date || '\u00A0'}</td>
                             <td className="border border-slate-300 p-1">{p.amount || '\u00A0'}</td>
@@ -322,6 +336,68 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
             </div>
           </div>
         </div>
+
+        {/* Additional Payment Pages if needed */}
+        {paymentPages.map((pagePayments, pageIdx) => (
+          <div key={`page-${pageIdx}`} className="flex justify-center w-full overflow-x-auto py-1 print:py-0 print:block break-before-page mt-4 print:mt-0">
+            <div
+              className="bg-white shadow-xl print:shadow-none text-black flex flex-col relative overflow-hidden print-sheet-continuation w-full max-w-[210mm] print:w-[210mm]"
+              style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'var(--font-marathi), Noto Sans Devanagari, sans-serif' }}
+            >
+              <SubtleWatermark />
+              <div className="border border-[#8b1a1a] p-2 sm:p-[4.5mm] h-full flex flex-col relative z-10 rounded-sm">
+                <HeaderBanner title="महालक्ष्मी डेव्हलपर्स" isMarathi={true} />
+                
+                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 text-[11px] sm:text-[12px] mb-3 mt-1">
+                  <div><span className="font-bold">नंबर:</span> {form.formNumber}</div>
+                  <div className="bg-[#8b1a1a] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
+                    पेमेंटची माहिती (पुढील)
+                  </div>
+                  <div><span className="font-bold">दिनांक:</span> {new Date(form.createdAt).toLocaleDateString('mr-IN')}</div>
+                </div>
+                
+                <div className="overflow-x-auto w-full mt-3 flex-grow">
+                  <table className="w-full border-collapse text-[9px] sm:text-[10px]">
+                    <thead>
+                      <tr>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">दिनांक</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">रक्कम</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">प्रकार</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">रिमार्क</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pagePayments.map((p: any, i: number) => (
+                        <tr key={i}>
+                          <td className="border border-slate-300 p-1">{p.date || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.amount || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.type || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.remark || '\u00A0'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Signatures at the bottom of continuation pages */}
+                <div className="mt-auto pt-4 sm:pt-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3 sm:gap-0 text-[10px] sm:text-[11px]">
+                    <div className="text-center">
+                      <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
+                      <span className="font-bold text-[#8b1a1a]">ग्राहकाची सही</span>
+                    </div>
+                    <div className="text-center">
+                      <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
+                      <span className="font-bold text-[#8b1a1a]">पैसे स्वीकारणाऱ्याची सही</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        ))}
+
         
         {/* Page 2: Terms & Conditions */}
         <TermsAndConditionsPage fontClass={fontClass} customerSupportNumber={d.customerSupportNumber} />
@@ -331,6 +407,20 @@ export function CustomerInfoMarathiPreview({ form, d, fontClass, handlePrint, pr
 }
 
 export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, previewLang, setPreviewLang }: any) {
+  const payments = d.payments || [];
+  const firstPagePayments = payments.slice(0, 10);
+  const remainingPayments = payments.slice(10);
+  
+  const chunkArray = (arr: any[], size: number) => {
+    const chunked = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunked.push(arr.slice(i, i + size));
+    }
+    return chunked;
+  };
+
+  const paymentPages = remainingPayments.length > 0 ? chunkArray(remainingPayments, 25) : [];
+
   return (
     <div className="space-y-6 print:space-y-0 w-full">
       <div id="print-area" className="print-container space-y-6 print:space-y-0 w-full">
@@ -427,7 +517,7 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
                         </tr>
                       </thead>
                       <tbody>
-                        {d.payments.map((p: any, i: number) => (
+                        {firstPagePayments.map((p: any, i: number) => (
                           <tr key={i}>
                             <td className="border border-slate-300 p-1">{p.date || '\u00A0'}</td>
                             <td className="border border-slate-300 p-1">{p.amount || '\u00A0'}</td>
@@ -466,6 +556,68 @@ export function CustomerInfoEnglishPreview({ form, d, fontClass, handlePrint, pr
             </div>
           </div>
         </div>
+
+        {/* Additional Payment Pages if needed */}
+        {paymentPages.map((pagePayments, pageIdx) => (
+          <div key={`page-${pageIdx}`} className="flex justify-center w-full overflow-x-auto py-1 print:py-0 print:block break-before-page mt-4 print:mt-0">
+            <div
+              className="bg-white shadow-xl print:shadow-none text-black flex flex-col relative overflow-hidden print-sheet-continuation w-full max-w-[210mm] print:w-[210mm]"
+              style={{ minHeight: '280mm', padding: '4mm 6mm', fontFamily: 'sans-serif' }}
+            >
+              <SubtleWatermark />
+              <div className="border border-[#8b1a1a] p-2 sm:p-[4.5mm] h-full flex flex-col relative z-10 rounded-sm">
+                <HeaderBanner title="MAHALAXMI DEVELOPERS" isMarathi={false} />
+                
+                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-b border-gray-300 py-1.5 text-[11px] sm:text-[12px] mb-3 mt-1">
+                  <div><span className="font-bold">No:</span> {form.formNumber}</div>
+                  <div className="bg-[#8b1a1a] text-white px-4 sm:px-6 py-0.5 font-bold text-xs sm:text-[14px] rounded-full shadow-xs tracking-wide">
+                    Payment Information (Continuation)
+                  </div>
+                  <div><span className="font-bold">Date:</span> {new Date(form.createdAt).toLocaleDateString('en-IN')}</div>
+                </div>
+                
+                <div className="overflow-x-auto w-full mt-3 flex-grow">
+                  <table className="w-full border-collapse text-[9px] sm:text-[10px]">
+                    <thead>
+                      <tr>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Date</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Amount</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Type</th>
+                        <th className="border border-slate-300 p-1 bg-[#8b1a1a] text-white text-left font-bold">Remark</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pagePayments.map((p: any, i: number) => (
+                        <tr key={i}>
+                          <td className="border border-slate-300 p-1">{p.date || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.amount || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.type || '\u00A0'}</td>
+                          <td className="border border-slate-300 p-1">{p.remark || '\u00A0'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Signatures at the bottom of continuation pages */}
+                <div className="mt-auto pt-4 sm:pt-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3 sm:gap-0 text-[10px] sm:text-[11px]">
+                    <div className="text-center">
+                      <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
+                      <span className="font-bold text-[#8b1a1a]">Customer Signature</span>
+                    </div>
+                    <div className="text-center">
+                      <div className="border-t border-black w-28 sm:w-36 mb-1 mt-3 sm:mt-4"></div>
+                      <span className="font-bold text-[#8b1a1a]">Authorized Signature</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        ))}
+
 
         {/* Page 2: Terms & Conditions */}
         <TermsAndConditionsEnglishPage fontClass={fontClass} customerSupportNumber={d.customerSupportNumber} />

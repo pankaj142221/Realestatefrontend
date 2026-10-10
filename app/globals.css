@@ -354,6 +354,7 @@
 @media screen and (max-width: 768px) {
   .print-sheet-1,
   .print-sheet-2,
+  .print-sheet-continuation,
   .print-sheet-receipt,
   .print-sheet-visit,
   .print-sheet-ledger {
